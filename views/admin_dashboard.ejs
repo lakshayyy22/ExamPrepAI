@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>ExamPrep AI</span>
+        <small>Admin</small>
+    </div>
+
+    <div class="nav-actions">
+        <a href="/dashboard" class="nav-btn">
+            <i class="fa-solid fa-user"></i> User Mode
+        </a>
+        <a href="/logout" class="nav-btn logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="header">
+        <h1>Admin Control Panel</h1>
+        <p>Manage and review exam papers efficiently</p>
+    </div>
+
+    <div class="admin-options">
+
+        <a href="/admin/pending" class="admin-card">
+            <div class="card-icon pending">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="card-content">
+                <h2>Approve Papers</h2>
+                <p>Review and approve uploaded exam papers</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="/admin/approved" class="admin-card">
+            <div class="card-icon approved">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="card-content">
+                <h2>View Approved Papers</h2>
+                <p>Browse all approved question papers</p>
+            </div>
+            <i class="fa-solid fa-arrow-right arrow"></i>
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

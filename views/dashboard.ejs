@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | ExamPrep AI</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>ExamPrep AI</span>
+    </div>
+
+    <div class="nav-right">
+        <span class="username">
+            <i class="fa-solid fa-user"></i>
+            Welcome, User
+        </span>
+
+        <a href="/logout" class="btn-outline">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
+</nav>
+
+<div id="SuccessPopup" class="toast hidden">
+    <i class="fa-solid fa-circle-check"></i>
+    Sent for review
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Your Practice Hub</h1>
+        <p>Upload papers, generate AI exams, and master your preparation.</p>
+    </div>
+</section>
+
+<!-- CARDS -->
+<section class="cards">
+
+    <div class="card">
+        <div class="card-icon blue">
+            <i class="fa-solid fa-upload"></i>
+        </div>
+        <h3>Upload Question Paper</h3>
+        <p>Add previous year papers for AI training and storage.</p>
+        <a href="/upload" class="btn-primary">
+            Upload Now
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-icon green">
+            <i class="fa-solid fa-folder-open"></i>
+        </div>
+        <h3>View Stored Papers</h3>
+        <p>Browse and download all uploaded exam papers.</p>
+        <a href="/papers" class="btn-primary">
+            View Papers
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-icon purple">
+            <i class="fa-solid fa-robot"></i>
+        </div>
+        <h3>Generate AI Paper</h3>
+        <p>Create a brand new exam paper using AI.</p>
+        <a href="/generate-ai" class="btn-primary">
+            Generate
+        </a>
+    </div>
+
+    <div class="card disabled">
+        <div class="card-icon gray">
+            <i class="fa-solid fa-gamepad"></i>
+        </div>
+        <h3>Practice Mode</h3>
+        <p>Attempt AI generated questions interactively.</p>
+        <button class="btn-disabled">Coming Soon</button>
+    </div>
+
+</section>
+
+<script>
+const msg = "<%= msg %>";
+
+function showPopup(id){
+    const p = document.getElementById(id);
+    window.history.replaceState({}, document.title, "/dashboard");
+    p.classList.remove("hidden");
+    setTimeout(() => p.classList.add("hidden"), 2000);
+}
+
+if(msg === "uploaded"){
+    showPopup("SuccessPopup");
+}
+</script>
+
+</body>
+</html>

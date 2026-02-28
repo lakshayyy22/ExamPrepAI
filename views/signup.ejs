@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup - ExamPractice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+  <div id="FailedPopup" class="popup error hidden">
+  Account Exists
+</div>
+  <div class="auth-card">
+    <h1>Create Account 🚀</h1>
+    <p class="subtitle">Start practicing smarter today</p>
+
+    <form action="/signupauth" method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <form action="/auth/google/signup">
+      <button class="google-btn"><i class = "fa-brands fa-goole"></i>Sign up with Google</button>
+    </form>
+
+    <div class="switch">
+      Already have an account?
+      <a href="/login">Login</a>
+    </div>
+  </div>
+<script>
+    const msg = "<%= msg %>";
+
+  function showPopup(id) {
+    const p = document.getElementById(id);
+    p.classList.remove("hidden");
+    window.history.replaceState({}, document.title, "/signup");
+    setTimeout(() => {
+      p.classList.add("hidden");      
+    }, 2000);
+  }
+
+  if (msg === "failed") showPopup("FailedPopup");
+</script>
+</body>
+</html>

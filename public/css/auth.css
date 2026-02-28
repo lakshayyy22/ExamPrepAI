@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
+
+.auth-card {
+    background: rgba(255,255,255,0.95);
+    padding: 40px;
+    width: 360px;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.auth-card h1 {
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+/* INPUTS */
+
+.auth-card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+}
+
+.auth-card input:focus {
+    border-color: #2563eb;
+}
+
+/* BUTTONS */
+
+.auth-card button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.auth-card button:hover {
+    background: #1d4ed8;
+}
+
+/* GOOGLE BTN */
+
+.google-btn {
+    margin-top: 12px;
+    background: white !important;
+    color: #111827 !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.google-btn:hover {
+    background: #f3f4f6 !important;
+}
+
+/* SWITCH */
+
+.switch {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.switch a {
+    color: #2563eb;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* POPUPS */
+
+.popup {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-weight: 500;
+    animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.success {
+    background: #22c55e;
+    color: white;
+}
+
+.error {
+    background: #ef4444;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}

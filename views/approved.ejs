@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Approved Papers - Admin</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/admin_pending.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>ExamPrep AI</span>
+        <small>Admin</small>
+    </div>
+
+    <div class="nav-actions">
+        <a href="/admin" class="nav-btn">
+            <i class="fa-solid fa-arrow-left"></i> Dashboard
+        </a>
+        <a href="/logout" class="nav-btn logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
+</nav>
+
+<div id="RejectedPopup" class="toast hidden">
+    ✖ Paper removed successfully
+</div>
+
+<section class="header">
+    <h1><i class="fa-solid fa-circle-check"></i> Approved Papers</h1>
+    <p>Manage all approved question papers</p>
+</section>
+
+<section class="papers-container">
+<% if(!papers || papers.length === 0){ %>
+    <div class="empty-state">
+        <i>📂</i>
+        <h3>No papers Approved</h3>
+        <p>Your approved papers appear here</p>
+    </div>
+<% } else { %>
+
+<% papers.forEach(paper => { %>
+    <div class="paper-card" id="paper-<%= paper.id %>">
+
+        <div class="paper-info">
+            <h3>
+                <i class="fa-solid fa-book"></i>
+                <%= paper.subject %> - <%= paper.year %>
+            </h3>
+
+            <div class="meta">
+                <span><i class="fa-solid fa-file-lines"></i> <%= paper.exam_type %></span>
+                <span><i class="fa-solid fa-user"></i> <%= paper.uploaded_by %></span>
+            </div>
+        </div>
+
+        <div class="card-buttons">
+            <a href="/show/<%= paper.id %>" class="btn view-btn">
+                <i class="fa-solid fa-eye"></i> View
+            </a>
+
+            <button data-id="<%= paper.id %>" class="btn danger-btn reject-btn">
+                <i class="fa-solid fa-trash"></i> Remove
+            </button>
+        </div>
+
+    </div>
+<% }) %>
+<% } %>
+</section>
+
+<script>
+function showPopup(id){
+    const p = document.getElementById(id);
+    p.classList.remove("hidden");
+    setTimeout(() => p.classList.add("hidden"), 2000);
+}
+
+document.querySelectorAll(".reject-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+        const id = btn.dataset.id;
+
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Removing`;
+
+        document.getElementById(`paper-${id}`).classList.add("processing");
+
+        const res = await fetch(`/admin/reject/${id}`, { method: "POST" });
+        const data = await res.json();
+
+        if(data.success){
+            document.getElementById(`paper-${id}`).remove();
+            showPopup("RejectedPopup");
+        }
+    });
+});
+</script>
+
+</body>
+</html>

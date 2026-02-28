@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Paper • ExamPrep AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/upload.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>ExamPrep AI</span>
+    </div>
+
+    <div class="nav-right">
+        <a href="/dashboard" class="btn-outline">
+            <i class="fa-solid fa-arrow-left"></i> Dashboard
+        </a>
+        <a href="/logout" class="btn-outline">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
+</nav>
+
+
+<!-- MAIN -->
+<div class="upload-container">
+
+  <h1>Upload Question Paper</h1>
+  <p class="subtitle">Add past year papers to the repository</p>
+
+  <form action="/upload-exam" method="POST" enctype="multipart/form-data" class="upload-form">
+
+    <!-- SUBJECT -->
+    <div class="form-group">
+      <label>Subject</label>
+      <input type="text" name="subject" placeholder="e.g. Operating Systems" required>
+    </div>
+
+    <!-- EXAM TYPE -->
+    <div class="form-group">
+      <label>Exam Type</label>
+      <select name="exam_type" required>
+        <option value="">Select type</option>
+        <option value="Mid Sem">Mid Sem</option>
+        <option value="End Sem">End Sem</option>
+        <option value="Quiz">Quiz</option>
+      </select>
+    </div>
+
+    <!-- YEAR -->
+    <div class="form-group">
+      <label>Year</label>
+      <input type="number" name="year" placeholder="e.g. 2023" required>
+    </div>
+
+    <!-- PDF FILE -->
+    <div class="form-group">
+      <label>Upload PDF</label>
+      <input type="file" name="pdf" accept=".pdf" required>
+    </div>
+
+    <!-- BUTTON -->
+    <button type="submit" class="upload-btn">
+      Upload Paper
+    </button>
+
+  </form>
+
+</div>
+
+</body>
+</html>

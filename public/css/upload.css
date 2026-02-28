@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #111827;
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-outline {
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid white;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #111827;
+}
+
+
+/* MAIN CONTAINER */
+
+.upload-container {
+    max-width: 550px;
+    margin: 70px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.upload-container h1 {
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+/* FORM */
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+input, select {
+    padding: 11px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* FILE INPUT */
+
+input[type="file"] {
+    padding: 8px;
+    background: #f3f4f6;
+    cursor: pointer;
+}
+
+/* BUTTON */
+
+.upload-btn {
+    margin-top: 10px;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.upload-btn:hover {
+    background: #1d4ed8;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .upload-container {
+        margin: 40px 20px;
+        padding: 30px;
+    }
+}

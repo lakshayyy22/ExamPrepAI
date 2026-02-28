@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pending Papers - Admin</title>
+  <link rel="stylesheet" href="../css/admin_pending.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+        ExamPrep AI
+        <small>Admin</small>
+    </div>
+
+    <div class="nav-actions">
+        <a href="/admin" class="nav-btn">
+            <i class="fa-solid fa-arrow-left"></i> Dashboard
+        </a>
+
+        <a href="/logout" class="nav-btn logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
+</nav>
+
+
+<!-- TOASTS -->
+<div id="ApprovedPopup" class="toast hidden">
+    ✔ Paper Approved
+</div>
+
+<div id="RejectedPopup" class="toast hidden">
+    ✖ Paper Rejected
+</div>
+
+
+<!-- HEADER -->
+<section class="header">
+    <h1>Pending Paper Approvals</h1>
+    <p>Review uploaded papers and approve or reject them</p>
+</section>
+
+
+<!-- PAPERS GRID -->
+<section class="papers-container">
+
+<% if (!papers || papers.length === 0) { %>
+
+    <div class="empty-state">
+        <i>📂</i>
+        <h3>No papers for approval</h3>
+        <p>All submissions have been reviewed.</p>
+    </div>
+
+<% } else { %>
+
+    <% papers.forEach(paper => { %>
+
+        <div class="paper-card" id="paper-<%= paper.id %>">
+
+            <!-- LEFT INFO -->
+            <div class="paper-info">
+                <h3><%= paper.subject %> • <%= paper.year %></h3>
+
+                <div class="meta">
+                    <span>📝 <%= paper.exam_type %></span>
+                    <span>👤 <%= paper.uploaded_by %></span>
+                </div>
+            </div>
+
+            <!-- RIGHT BUTTONS -->
+            <div class="card-buttons">
+
+                <a href="/show/<%= paper.id %>" class="btn view-btn">
+                    📄 View
+                </a>
+
+                <button 
+                    data-id="<%= paper.id %>" 
+                    class="btn approve-btn">
+                    ✔ Approve
+                </button>
+
+                <button 
+                    data-id="<%= paper.id %>" 
+                    class="btn danger-btn reject-btn">
+                    ✖ Reject
+                </button>
+
+            </div>
+
+        </div>
+
+    <% }) %>
+
+<% } %>
+
+</section>
+</section>
+<script>
+  function showPopup(id) {
+    const p = document.getElementById(id);
+    p.classList.remove("hidden");
+    setTimeout(() => {
+      p.classList.add("hidden");
+    }, 2000);
+  }
+  document.querySelectorAll(".approve-btn").forEach(btn =>{
+    btn.addEventListener("click", async()=>{
+      const id = btn.dataset.id;
+      btn.disabled = true;
+      btn.innerText = "Approving..."
+      document.getElementById(`paper-${id}`).classList.add("processing");
+      const res = await fetch(`/admin/approve/${id}`, {method: "POST"});
+      const data = await res.json();
+      if(data.success){
+        document.getElementById(`paper-${id}`).remove();
+        showPopup("ApprovedPopup")
+      }
+    })
+  })
+  document.querySelectorAll(".reject-btn").forEach(btn =>{
+    btn.addEventListener("click", async()=>{
+      const id = btn.dataset.id;
+      btn.disabled = true;
+      btn.innerText = "Rejecting..."
+      document.getElementById(`paper-${id}`).classList.add("processing");
+      const res = await fetch(`/admin/reject/${id}`, {method: "POST"});
+      const data = await res.json();
+      if(data.success){
+        document.getElementById(`paper-${id}`).remove();
+        showPopup("Rejected Popup");
+      }
+    })
+  })
+  
+</script>
+
+</body>
+</html>

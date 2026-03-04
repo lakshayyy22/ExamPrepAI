@@ -32,7 +32,7 @@ async function sessionChecker2(req, res, next){
         }
         return res.redirect("/dashboard");
     } catch(err){
-        return res.redirect("/login");
+        return next();
     }
 }
 

@@ -10,7 +10,7 @@ const upload = multer({ dest: "uploads/" });
 
 router.get("/", homeCheck, async (req, res)=> res.render("index"));
 
-router.get("/dashboard", sessionChecker1, async (req,res)=> res.render("dashboard", {msg: req.query.msg}));
+router.get("/dashboard", sessionChecker1, async (req,res)=> res.render("dashboard", {msg: req.query.msg, user : req.user.role}));
 
 router.get("/upload", sessionChecker1, async (req,res)=> res.render("upload"));
 

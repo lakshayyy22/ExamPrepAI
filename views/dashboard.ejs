@@ -26,7 +26,12 @@
             <i class="fa-solid fa-user"></i>
             Welcome, User
         </span>
-
+        
+        <% if(user === "admin"){ %>
+          <a href="/admin" class="btn-outline">
+            <i class="fa-solid fa-user"></i> Admin Mode
+          </a>
+        <% } %>
         <a href="/logout" class="btn-outline">
             <i class="fa-solid fa-right-from-bracket"></i> Logout
         </a>

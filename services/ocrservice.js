@@ -4,7 +4,7 @@ const FormData = require("form-data");
 const pdf = require("pdf-parse");
 
 async function extractTextPdf(filePath){
-    const buffer = fdatasync.readFileSync(filePath);
+    const buffer = fs.readFileSync(filePath);
     const data = await pdf(buffer);
     return data.text;
 }

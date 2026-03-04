@@ -72,11 +72,8 @@ async function uploadPaper(req, res){
 async function getPaperStream(req, res){
     const id = req.params.id;
     const result = await pool.query(
-        "SELECT pdf_url FROM exams WHERE id = $1", [id]
+        "SELECT pdf_url FROM exams WHERE id = $1 AND status = 'approved'",[id]
     );
-    if(result.rows.length === 0){
-        return res.redirect("/papers?msg=failed");
-    }
     const file = await axios.get(
         result.rows[0].pdf_url, {
         responseType:"stream"
@@ -86,9 +83,24 @@ async function getPaperStream(req, res){
     file.data.pipe(res);
 }
 
+async function checkPaper(req, res){
+    const id = req.params.id;
+    const result = await pool.query(
+        "SELECT pdf_url FROM exams WHERE id = $1 AND status = 'approved'",[id]
+    );
+    if(result.rows.length === 0){
+        return res.json({success:false});
+    }
+    res.json({
+        success:true,
+        pdf: result.rows[0].pdf_url
+    });
+}
+
 module.exports = {
     getPapers,
     sendPaper,
     uploadPaper,
-    getPaperStream
+    getPaperStream,
+    checkPaper
 }

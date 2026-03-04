@@ -25,6 +25,10 @@
     </div>
 </nav>
 
+<div id="RejectedPopup" class="toast hidden">
+    ✖ Paper Removed. Kindly refresh.
+</div>
+
   <!-- FILTER SECTION -->
   <section class="filter-section">
     <h1>Browse Question Papers</h1>
@@ -65,12 +69,12 @@
       </div>
     <%}else{%>
       <% papers.forEach(paper => {%>
-      <div class="paper-card">
+      <div class="paper-card" id="paper-<%= paper.id %>" >
         <h3><%=paper.year%></h3>
         <p>Subject: <%=paper.subject%></p>
         <p>Exam: <%=paper.exam_type%></p>
         <div class="card-buttons">
-          <a href="/show/<%=paper.id%>" class="btn-outline">View</a>
+          <button onclick = "viewPaper(<%= paper.id %>)" class="btn-outline">View</button>
         </div>
       </div>
     <%})%>
@@ -79,16 +83,25 @@
 <script>
   const msg = "<%= msg %>";
 
-  function showPopup(id) {
+  function showPopup(id, paperId) {
     const p = document.getElementById(id);
     window.history.replaceState({}, document.title, "/papers");
     p.classList.remove("hidden");
+    document.getElementById(`paper-${paperId}`).remove();
     setTimeout(() => {
       p.classList.add("hidden");
     }, 2000);
   }
 
-  if (msg === "failed") showPopup("SuccessPopup");
+  async function viewPaper(id){
+    const res = await fetch(`/paper/${id}`);
+    const data = await res.json();
+    if(!data.success){
+      showPopup("RejectedPopup", id);
+      return;
+    }
+    window.open(`/show/${id}`,"_blank");
+  }
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 
-const {getPapers,sendPaper,uploadPaper, getPaperStream} = require("../controllers/papers.js");
+const {getPapers,sendPaper,uploadPaper, getPaperStream, checkPaper} = require("../controllers/papers.js");
 
 const { sessionChecker1 , homeCheck} = require("../middlewares/sessionCheck");
 
@@ -26,5 +26,7 @@ router.post("/upload-exam", sessionChecker1, upload.single("pdf"), uploadPaper);
 router.get("/generate-ai", async (req,res)=> res.render("generate_ai"));
 
 router.post("/generated-paper", sendPaper);
+
+router.get("/paper/:id", sessionChecker1, checkPaper);
 
 module.exports = router;

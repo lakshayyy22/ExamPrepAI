@@ -157,16 +157,19 @@ select:focus {
 
 /* POPUP */
 
-.popup {
+
+.toast {
     position: fixed;
-    top: 30px;
-    right: 30px;
-    padding: 14px 20px;
-    border-radius: 8px;
-    background: #22c55e;
+    top: 20px;
+    right: 20px;
+    background: #ef4444;
     color: white;
-    font-weight: 500;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .hidden {

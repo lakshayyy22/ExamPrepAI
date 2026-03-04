@@ -38,7 +38,7 @@ async function uploadPaper(req, res){
 
         const userId = req.user.id;
 
-        const text = await processOCR(req.file.path);
+        const text = await extractText(req.file.path);
 
         await pool.query(
             `

@@ -5,34 +5,39 @@ const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 
 async function loginLocally(req, res){
-    console.log("Request recieved");
-    const email = req.body.email;
-    const password = req.body.password;
-    let result = await pool.query(
-        "SELECT * FROM users WHERE email = $1",[email]
-    );
-    if(result.rows.length === 0){
-        return res.redirect("login?msg=failed");
+    try{
+        console.log("Request recieved");
+        const email = req.body.email;
+        const password = req.body.password;
+        let result = await pool.query(
+            "SELECT * FROM users WHERE email = $1",[email]
+        );
+        if(result.rows.length === 0){
+            return res.redirect("login?msg=failed");
+        }
+        console.log(result.rows);
+        const user = result.rows[0];
+        if(!user.password_hash){
+            return res.redirect("login?msg=failed");
+        }
+        const isMatch = await bcrypt.compare(password, user.password_hash);
+        if(!isMatch){
+            return res.redirect("login?msg=failed");
+        }
+        const token = setUser(user);
+        res.cookie("S_id", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        });
+        if(user.role === 'admin'){
+            return res.redirect("/admin");
+        }
+        return res.redirect("/dashboard");
+    }catch(err){
+        console.log(err);
+        res.status(500).send(err);
     }
-    console.log(result.rows);
-    const user = result.rows[0];
-    if(!user.password_hash){
-        return res.redirect("login?msg=failed");
-    }
-    const isMatch = await bcrypt.compare(password, user.password_hash);
-    if(!isMatch){
-        return res.redirect("login?msg=failed");
-    }
-    const token = setUser(user);
-    res.cookie("S_id", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none"
-    });
-    if(user.role === 'admin'){
-        return res.redirect("/admin");
-    }
-    return res.redirect("/dashboard");
 }
 
 async function signupLocally(req, res){

@@ -1,7 +1,6 @@
 const axios = require("axios");
 const fs = require("fs");
-const FormData = require("form-data");
-const pdf = require("pdf-parse");
+const pdf = require("pdf-parse/lib/pdf-parse");
 
 async function extractTextPdf(filePath){
     const buffer = fs.readFileSync(filePath);

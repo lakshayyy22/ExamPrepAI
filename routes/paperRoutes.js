@@ -6,7 +6,7 @@ const {getPapers,sendPaper,uploadPaper, getPaperStream} = require("../controller
 const { sessionChecker1 , homeCheck} = require("../middlewares/sessionCheck");
 
 const router = express.Router();
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: "/tmp/" });
 
 router.get("/", homeCheck, async (req, res)=> res.render("index"));
 

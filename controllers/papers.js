@@ -40,7 +40,7 @@ async function uploadPaper(req, res){
         const userId = req.user.id;
 
         let text = await extractTextPdf(req.file.path);
-        console.log("File: ", req.file.path);
+      //  console.log("File: ", req.file.path);
         if(!text|| text.trim() === ""){
             text = await extractText(pdfUrl);
         } 
@@ -56,8 +56,7 @@ async function uploadPaper(req, res){
         try{
             if(req.file && req.file.path){
                  await fs.promises.unlink(req.file.path);
-            }
-           
+            }           
         }
         catch(err){
             console.log(err.message)

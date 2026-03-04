@@ -29,32 +29,41 @@ async function sendPaper(req, res){
 }
 
 async function uploadPaper(req, res){
-    const { subject, exam_type, year } = req.body;
-    const pdfUrl = await uploadPDF(req.file);
+    try{
+        const { subject, exam_type, year } = req.body;
+        if(!req.file){
+            return res.status(400).send("No file uploaded");
+        }
+        const pdfUrl = await uploadPDF(req.file);
 
-    const userId = req.user.id;
+        const userId = req.user.id;
 
-    const text = await processOCR(
-      req.file.path,
-      subject,
-      year,
-      exam_type,
-      pdfUrl,
-      userId
-    );
+        const text = await processOCR(
+        req.file.path,
+        subject,
+        year,
+        exam_type,
+        pdfUrl,
+        userId
+        );
 
-    await pool.query(
-        `
-        INSERT INTO exams 
-        (subject, year, exam_type, paper_txt, pdf_url, uploaded_by, status)
-        VALUES ($1,$2,$3,$4,$5,$6,'pending')
-        `,
-        [subject, year, exam_type, text, pdfUrl, userId]
-    );
+        await pool.query(
+            `
+            INSERT INTO exams 
+            (subject, year, exam_type, paper_txt, pdf_url, uploaded_by, status)
+            VALUES ($1,$2,$3,$4,$5,$6,'pending')
+            `,
+            [subject, year, exam_type, text, pdfUrl, userId]
+        );
 
-    await fs.unlink(req.file.path);
+        await fs.unlink(req.file.path);
 
-    res.redirect("/dashboard?msg=uploaded");
+        res.redirect("/dashboard?msg=uploaded");
+    }catch(err){
+        console.log(err);
+        res.status(500).send("Upload failed");
+    }
+    
 }
 
 async function getPaperStream(req, res){

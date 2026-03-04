@@ -30,6 +30,7 @@ async function sendPaper(req, res){
 
 async function uploadPaper(req, res){
     try{
+        
         const { subject, exam_type, year } = req.body;
         if(!req.file){
             return res.status(400).send("No file uploaded");
@@ -39,7 +40,7 @@ async function uploadPaper(req, res){
         const userId = req.user.id;
 
         let text = await extractTextPdf(req.file.path);
-
+        console.log("File: ", req.file.path);
         if(!text|| text.trim() === ""){
             text = await extractText(pdfUrl);
         } 
@@ -52,7 +53,12 @@ async function uploadPaper(req, res){
             `,
             [subject, year, exam_type, text, pdfUrl, userId]
         );
-        try{await fs.promises.unlink(req.file.path);}
+        try{
+            if(req.file && req.file.path){
+                 await fs.promises.unlink(req.file.path);
+            }
+           
+        }
         catch(err){
             console.log(err.message)
         }

@@ -3,7 +3,7 @@ const {generatePaper} = require("../services/groqService");
 const {streamPDF} = require("../services/pdfService");
 const supabase = require("../config/supabase");
 const{uploadPDF} = require("../services/pdfStorageService");
-const extractText = require("../services/ocrservice");
+const {extractText, extractTextPdf} = require("../services/ocrservice");
 const fs = require("fs/promises");
 const axios = require("axios");
 
@@ -38,7 +38,11 @@ async function uploadPaper(req, res){
 
         const userId = req.user.id;
 
-        const text = await extractText(req.file.path);
+        let text = await extractTextPdf(req.file.path);
+
+        if(!text|| text.trim() === ""){
+            text = await extractText(req.file.path);
+        } 
 
         await pool.query(
             `
@@ -48,8 +52,7 @@ async function uploadPaper(req, res){
             `,
             [subject, year, exam_type, text, pdfUrl, userId]
         );
-
-        await fs.unlink(req.file.path);
+        await fs.promises.unlink(req.file.path);
 
         res.redirect("/dashboard?msg=uploaded");
     }catch(err){

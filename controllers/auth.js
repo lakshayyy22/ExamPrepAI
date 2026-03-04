@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const SALT_ROUNDS = 10;
 
 async function loginLocally(req, res){
+    console.log("Request recieved");
     const email = req.body.email;
     const password = req.body.password;
     let result = await pool.query(
@@ -13,6 +14,7 @@ async function loginLocally(req, res){
     if(result.rows.length === 0){
         return res.redirect("login?msg=failed");
     }
+    console.log(result.rows);
     const user = result.rows[0];
     if(!user.password_hash){
         return res.redirect("login?msg=failed");
@@ -22,7 +24,11 @@ async function loginLocally(req, res){
         return res.redirect("login?msg=failed");
     }
     const token = setUser(user);
-    res.cookie("S_id", token);
+    res.cookie("S_id", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    });
     if(user.role === 'admin'){
         return res.redirect("/admin");
     }
@@ -42,7 +48,11 @@ async function signupLocally(req, res){
         "INSERT INTO users(username, email, password_hash) VALUES($1, $2, $3)",[username, email, hash]
     );
     const token = setUser(user);
-    res.cookie("S_id", token);
+    res.cookie("S_id", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    });
     return res.redirect("/dashboard");
 }
 

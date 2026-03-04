@@ -3,7 +3,7 @@ const {generatePaper} = require("../services/groqService");
 const {streamPDF} = require("../services/pdfService");
 const supabase = require("../config/supabase");
 const{uploadPDF} = require("../services/pdfStorageService");
-const {processOCR} = require("../services/ocrservice");
+const extractText = require("../services/ocrservice");
 const fs = require("fs/promises");
 const axios = require("axios");
 
@@ -38,14 +38,7 @@ async function uploadPaper(req, res){
 
         const userId = req.user.id;
 
-        const text = await processOCR(
-        req.file.path,
-        subject,
-        year,
-        exam_type,
-        pdfUrl,
-        userId
-        );
+        const text = await processOCR(req.file.path);
 
         await pool.query(
             `

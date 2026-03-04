@@ -4,7 +4,7 @@ const {streamPDF} = require("../services/pdfService");
 const supabase = require("../config/supabase");
 const{uploadPDF} = require("../services/pdfStorageService");
 const {extractText, extractTextPdf} = require("../services/ocrservice");
-const fs = require("fs/promises");
+const fs = require("fs");
 const axios = require("axios");
 
 async function getPapers(req , res){

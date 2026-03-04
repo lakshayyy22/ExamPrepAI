@@ -52,8 +52,10 @@ async function uploadPaper(req, res){
             `,
             [subject, year, exam_type, text, pdfUrl, userId]
         );
-        await fs.promises.unlink(req.file.path);
-
+        try{await fs.promises.unlink(req.file.path);}
+        catch(err){
+            console.log(err.message)
+        }
         res.redirect("/dashboard?msg=uploaded");
     }catch(err){
         console.log(err);

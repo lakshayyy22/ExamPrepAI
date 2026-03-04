@@ -17,16 +17,26 @@ An AI-powered full-stack web application for uploading, reviewing, and browsing 
 
 ---
 
-🛠️ Tech Stack
+🛠 Tech Stack
 
+Backend
 - Node.js
 - Express.js
-- EJS
+
+Database & Storage
 - PostgreSQL (Supabase)
-- Passport.js
+- Supabase Storage
+
+Authentication
+- Passport.js (Google OAuth)
 - JWT
-- Python OCR
+
+AI & Processing
 - Groq AI API
+- OCR.space API
+
+Frontend
+- EJS
 
 ---
 
@@ -53,14 +63,17 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 JWT_KEY=
 PORT=
+OCR_API_KEY=
 
-4️⃣ Run server
+4️⃣ Running the Project
 
 npm start
 
 Server runs on:
 
-http://localhost:3000 (currently)
+Local development : http://localhost:3000
+
+Live version : https://examprepai-9ijx.onrender.com
 
 ---
 

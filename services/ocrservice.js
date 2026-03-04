@@ -16,7 +16,12 @@ async function extractText(filePath){
             }
         }
     );
-    return response.data.ParsedResults[0].ParsedText;
+    const data = response.data;
+    if(data.IsErroredOnProcessing){
+        console.log("OCR Error: ", data.ErrorMessage);
+        return "";
+    }
+    return data.ParsedResults?.[0]?.ParsedText||"";
 }
 
 module.exports = extractText;

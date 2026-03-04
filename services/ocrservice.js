@@ -9,26 +9,19 @@ async function extractTextPdf(filePath){
     return data.text;
 }
 
-async function extractText(filePath){
-    const formData = new FormData();
-    formData.append("file", fs.createReadStream(filePath));
-    formData.append("language","eng");
-    formData.append("isOverlayRequired", "false");
+async function extractText(fileUrl){
     const response = await axios.post(
         "https://api.ocr.space/parse/image",
-        formData,{
+        {
+            url: fileUrl,
+            language: "eng"
+        },{
             headers:{
                 apikey: process.env.OCR_API_KEY,
-                ...formData.getHeaders()
             }
         }
     );
-    const data = response.data;
-    if(data.IsErroredOnProcessing){
-        console.log("OCR Error: ", data.ErrorMessage);
-        return "";
-    }
-    return data.ParsedResults?.[0]?.ParsedText||"";
+    return response.data.ParsedResults?.[0]?.ParsedText||"";
 }
 
 module.exports = {

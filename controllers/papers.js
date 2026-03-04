@@ -41,7 +41,7 @@ async function uploadPaper(req, res){
         let text = await extractTextPdf(req.file.path);
 
         if(!text|| text.trim() === ""){
-            text = await extractText(req.file.path);
+            text = await extractText(pdfUrl);
         } 
 
         await pool.query(

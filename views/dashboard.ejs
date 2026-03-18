@@ -4,18 +4,114 @@
     <meta charset="UTF-8">
     <title>Dashboard | ExamPrep AI</title>
 
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="stylesheet" href="/css/dashboard.css">
+
+    <style>
+      /* --- CHAT WIDGET STYLES --- */
+      
+      /* The Chat Window */
+      #chat-window {
+        display: none; 
+        position: fixed;
+        bottom: 20px;       /* Lowered since the bubble is gone */
+        right: 20px;
+        width: 50vw;        
+        height: 90vh;     /* 85% of the Viewport Height */
+        
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        z-index: 10000;
+        flex-direction: column;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s ease; /* Smooth opening */
+      }
+
+      /* The Header of the Chat Window */
+      .chat-header {
+        background-color: #6366f1; /* Primary dashboard color */
+        color: white;
+        padding: 15px;
+        font-family: 'Inter', sans-serif; 
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .close-btn:hover {
+        transform: scale(1.1);
+      }
+
+      /* The Iframe Container */
+      .chat-iframe-container {
+        flex-grow: 1;
+        width: 100%;
+        background: #f8fafc; /* Subtle gray background while loading */
+      }
+
+      .chat-iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      /* The Floating Bubble Button - ENHANCED */
+      #chat-bubble {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 80px;         /* Increased from 60px */
+        height: 80px;        /* Increased from 60px */
+        background-color: #6366f1; 
+        color: white;
+        border-radius: 50%;
+        border: none;
+        box-shadow: 0px 8px 25px rgba(99, 102, 241, 0.4);
+        font-size: 32px;     /* Bigger Icon */
+        cursor: pointer;
+        z-index: 10001; 
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        /* Optional: Subtle pulse effect to grab attention */
+        animation: pulse-animation 2s infinite;
+      }
+
+      #chat-bubble:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 12px 30px rgba(99, 102, 241, 0.6);
+      }
+
+      @keyframes pulse-animation {
+        0% { box-shadow: 0 0 0 0px rgba(99, 102, 241, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
+        100% { box-shadow: 0 0 0 0px rgba(99, 102, 241, 0); }
+      }
+    </style>
 </head>
 
 <body>
 
-<nav class="navbar">
+<nav class="navbar" style="position: relative; z-index: 100;">
     <div class="logo">
         <i class="fa-solid fa-graduation-cap"></i>
         <span>ExamPrep AI</span>
@@ -26,12 +122,7 @@
             <i class="fa-solid fa-user"></i>
             Welcome, User
         </span>
-        
-        <% if(user === "admin"){ %>
-          <a href="/admin" class="btn-outline">
-            <i class="fa-solid fa-user"></i> Admin Mode
-          </a>
-        <% } %>
+
         <a href="/logout" class="btn-outline">
             <i class="fa-solid fa-right-from-bracket"></i> Logout
         </a>
@@ -43,16 +134,14 @@
     Sent for review
 </div>
 
-<!-- HERO -->
-<section class="hero">
+<section class="hero" style="position: relative; z-index: 100;">
     <div class="hero-content">
         <h1>Your Practice Hub</h1>
         <p>Upload papers, generate AI exams, and master your preparation.</p>
     </div>
 </section>
 
-<!-- CARDS -->
-<section class="cards">
+<section class="cards" style="position: relative; z-index: 100;">
 
     <div class="card">
         <div class="card-icon blue">
@@ -98,19 +187,51 @@
 
 </section>
 
-<script>
-const msg = "<%= msg %>";
+<div id="chat-window">
+  <div class="chat-header">
+    <span><i class="fa-solid fa-robot" style="margin-right: 8px;"></i> RAG AI TUTOR</span>
+    <button class="close-btn" onclick="toggleChat()">✖</button>
+  </div>
+  
+  <div class="chat-iframe-container">
+    <iframe src="https://ragaillama.streamlit.app/?embed=true" loading="lazy"></iframe>
+  </div>
+</div>
 
-function showPopup(id){
+<button id="chat-bubble" onclick="toggleChat()">
+  <i class="fa-solid fa-message"></i>
+</button>
+<script>
+  // --- CHAT WIDGET LOGIC ---
+  function toggleChat() {
+    var chatWindow = document.getElementById("chat-window");
+    var chatBubble = document.getElementById("chat-bubble");
+    
+    // If the window is hidden, open it and HIDE the bubble
+    if (window.getComputedStyle(chatWindow).display === "none") {
+      chatWindow.style.display = "flex";
+      chatBubble.style.display = "none"; // <--- REMOVES THE BUBBLE
+    } else {
+      // This part runs when the "X" in the header is clicked
+      chatWindow.style.display = "none";
+      chatBubble.style.display = "flex"; // <--- BRINGS THE BUBBLE BACK
+    }
+  }
+
+  // --- SUCCESS POPUP LOGIC ---
+  const msg = "<%= msg %>";
+
+  function showPopup(id){
     const p = document.getElementById(id);
+    // Prevents the popup from re-appearing on page refresh
     window.history.replaceState({}, document.title, "/dashboard");
     p.classList.remove("hidden");
-    setTimeout(() => p.classList.add("hidden"), 2000);
-}
+    setTimeout(() => p.classList.add("hidden"), 3000); // Increased slightly for readability
+  }
 
-if(msg === "uploaded"){
+  if(msg === "uploaded"){
     showPopup("SuccessPopup");
-}
+  }
 </script>
 
 </body>

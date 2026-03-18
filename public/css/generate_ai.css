@@ -6,19 +6,20 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #f4f6f9;
-    color: #1f2937;
+    background: #000;
+    color: #e5e7eb;
 }
 
 /* NAVBAR */
 
 .navbar {
-    background: #111827;
-    color: white;
+    background: #0a0a0a;
+    color: #ffffff;
     padding: 18px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #1f1f1f;
 }
 
 .logo {
@@ -36,25 +37,27 @@ body {
 .btn-outline {
     text-decoration: none;
     padding: 8px 14px;
-    border: 1px solid white;
+    border: 1px solid #1f1f1f;
     border-radius: 6px;
-    color: white;
+    color: #e5e7eb;
     font-size: 14px;
     transition: 0.2s ease;
+    background: #111;
 }
 
 .btn-outline:hover {
-    background: white;
-    color: #111827;
+    background: #e5e7eb;
+    color: #000;
 }
 
 /* HERO */
 
 .hero {
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    background: linear-gradient(135deg, #000, #111827);
     color: white;
     padding: 60px 20px;
     text-align: center;
+    border-bottom: 1px solid #1f1f1f;
 }
 
 .hero h1 {
@@ -63,7 +66,7 @@ body {
 }
 
 .hero p {
-    opacity: 0.9;
+    color: #9ca3af;
 }
 
 /* FORM SECTION */
@@ -76,12 +79,13 @@ body {
 }
 
 .card {
-    background: white;
+    background: #0f0f0f;
     padding: 35px;
     border-radius: 14px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    border: 1px solid #1f1f1f;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8);
 }
 
 .form-group {
@@ -96,20 +100,23 @@ label {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #e5e7eb;
 }
 
 select {
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #1f1f1f;
     font-size: 14px;
     transition: 0.2s ease;
+    background: #000;
+    color: #e5e7eb;
 }
 
 select:focus {
     outline: none;
     border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.25);
 }
 
 /* BUTTON */
@@ -136,6 +143,6 @@ select:focus {
 }
 
 .generate-btn:disabled {
-    background: #9ca3af;
+    background: #444;
     cursor: not-allowed;
 }

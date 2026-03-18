@@ -6,19 +6,20 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #f4f6f9;
-    color: #1f2937;
+    background: #000;
+    color: #e5e7eb;
 }
 
 /* NAVBAR */
 
 .navbar {
-    background: #111827;
-    color: white;
+    background: #0a0a0a;
+    color: #ffffff;
     padding: 18px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #1f1f1f;
 }
 
 .logo {
@@ -43,7 +44,7 @@ body {
 
 .nav-btn {
     text-decoration: none;
-    color: white;
+    color: #e5e7eb;
     padding: 8px 14px;
     border-radius: 6px;
     font-size: 14px;
@@ -54,15 +55,15 @@ body {
 }
 
 .nav-btn:hover {
-    background: #1f2937;
+    background: #1a1a1a;
 }
 
 .logout {
-    background: #dc2626;
+    background: #b91c1c;
 }
 
 .logout:hover {
-    background: #b91c1c;
+    background: #991b1b;
 }
 
 /* CONTAINER */
@@ -80,10 +81,11 @@ body {
 .header h1 {
     font-size: 32px;
     margin-bottom: 8px;
+    color: #f9fafb;
 }
 
 .header p {
-    color: #6b7280;
+    color: #9ca3af;
 }
 
 /* CARDS */
@@ -95,7 +97,7 @@ body {
 }
 
 .admin-card {
-    background: white;
+    background: #0f0f0f;
     padding: 25px;
     border-radius: 14px;
     display: flex;
@@ -103,14 +105,15 @@ body {
     gap: 20px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border: 1px solid #1f1f1f;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
     transition: all 0.25s ease;
     position: relative;
 }
 
 .admin-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.9);
 }
 
 .card-icon {
@@ -121,21 +124,22 @@ body {
 }
 
 .pending {
-    background: #f59e0b;
+    background: #d97706;
 }
 
 .approved {
-    background: #10b981;
+    background: #059669;
 }
 
 .card-content h2 {
     font-size: 18px;
     margin-bottom: 6px;
+    color: #f3f4f6;
 }
 
 .card-content p {
     font-size: 14px;
-    color: #6b7280;
+    color: #9ca3af;
 }
 
 .arrow {

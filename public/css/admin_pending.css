@@ -6,19 +6,20 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #f4f6f9;
-    color: #1f2937;
+    background: #000;
+    color: #e5e7eb;
 }
 
 /* NAVBAR */
 
 .navbar {
-    background: #111827;
-    color: white;
+    background: #0a0a0a;
+    color: #ffffff;
     padding: 18px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #1f1f1f;
 }
 
 .logo {
@@ -42,7 +43,7 @@ body {
 
 .nav-btn {
     text-decoration: none;
-    color: white;
+    color: #e5e7eb;
     padding: 8px 14px;
     border-radius: 6px;
     font-size: 14px;
@@ -53,15 +54,15 @@ body {
 }
 
 .nav-btn:hover {
-    background: #1f2937;
+    background: #1a1a1a;
 }
 
 .logout {
-    background: #dc2626;
+    background: #b91c1c;
 }
 
 .logout:hover {
-    background: #b91c1c;
+    background: #991b1b;
 }
 
 /* HEADER */
@@ -75,10 +76,11 @@ body {
 .header h1 {
     font-size: 28px;
     margin-bottom: 6px;
+    color: #f9fafb;
 }
 
 .header p {
-    color: #6b7280;
+    color: #9ca3af;
 }
 
 /* GRID */
@@ -94,10 +96,11 @@ body {
 /* CARD */
 
 .paper-card {
-    background: white;
+    background: #0f0f0f;
     padding: 22px;
     border-radius: 14px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border: 1px solid #1f1f1f;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -106,7 +109,7 @@ body {
 
 .paper-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.8);
 }
 
 .paper-card.processing {
@@ -116,13 +119,14 @@ body {
 .paper-info h3 {
     font-size: 18px;
     margin-bottom: 8px;
+    color: #f3f4f6;
 }
 
 .meta {
     display: flex;
     gap: 20px;
     font-size: 14px;
-    color: #6b7280;
+    color: #9ca3af;
 }
 
 .meta span {
@@ -174,7 +178,7 @@ body {
 .empty-state {
     text-align: center;
     padding: 60px 0;
-    color: #6b7280;
+    color: #9ca3af;
 }
 
 .empty-state i {
@@ -188,14 +192,14 @@ body {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #ef4444;
+    background: #b91c1c;
     color: white;
     padding: 12px 18px;
     border-radius: 8px;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.8);
 }
 
 .hidden {

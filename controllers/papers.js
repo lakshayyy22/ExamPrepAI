@@ -24,7 +24,7 @@ async function sendPaper(req, res){
         "SELECT paper_txt FROM exams WHERE subject = $1 AND  exam_type = $2 AND status = 'approved'", [req.body.subject , req.body.exam_type]
     )
     const papers = result.rows;
-    const content = await generatePaper(req.body.subject , papers);
+    const content = await generatePaper(req.body.subject , papers, req.body.exam_type);
     streamPDF(res, req.body.subject, content);
 }
 

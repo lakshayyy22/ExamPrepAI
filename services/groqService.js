@@ -5,19 +5,29 @@ const groq = new Groq({
 });
 
 async function generatePaper(subject, context, type) {
-  const prompt = `
-Generate a NEW university question paper for ${subject}.
-It should be ${type}
-If type is Mid Sem 1 or Mid Sem 2 then total paper is of 15 marks
-If type is End Sem then total paper is of 50 marks
-Rules:
+const prompt = `
+Generate ONLY ONE university question paper.
+
+Subject: ${subject}
+Exam Type: ${type}
+
+STRICT RULES:
+- Generate ONLY ${type} paper
+- DO NOT generate any other type (no Mid Sem 1, Mid Sem 2, End Sem mix)
+- DO NOT mention other exam types
+- DO NOT generate multiple papers
+
+MARKS:
+- If ${type} is Mid Sem 1 OR Mid Sem 2 → total = 15 marks
+- If ${type} is End Sem → total = 50 marks
+
+RULES:
 - Same difficulty as past papers
 - Same structure
 - DO NOT copy questions
 
 Past Papers:
 ${context}
-
 `;
 
   const completion = await groq.chat.completions.create({

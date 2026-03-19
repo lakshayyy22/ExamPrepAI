@@ -5,25 +5,30 @@ const groq = new Groq({
 });
 
 async function generatePaper(subject, context, type) {
+let marks;
+
+if (type === "Mid Sem 1" || type === "Mid Sem 2") {
+  marks = 15;
+} else if (type === "End Sem") {
+  marks = 50;
+}
+
 const prompt = `
 Generate ONLY ONE university question paper.
 
 Subject: ${subject}
 Exam Type: ${type}
+Total Marks: ${marks}
 
 STRICT RULES:
 - Generate ONLY ${type} paper
-- DO NOT generate any other type (no Mid Sem 1, Mid Sem 2, End Sem mix)
+- DO NOT generate any other exam type
 - DO NOT mention other exam types
-- DO NOT generate multiple papers
+- Output MUST contain exactly ONE paper
 
-MARKS:
-- If ${type} is Mid Sem 1 OR Mid Sem 2 → total = 15 marks
-- If ${type} is End Sem → total = 50 marks
-
-RULES:
-- Same difficulty as past papers
-- Same structure
+STRUCTURE:
+- Follow same structure as past papers
+- Maintain similar difficulty
 - DO NOT copy questions
 
 Past Papers:

@@ -39,8 +39,7 @@ async function uploadPaper(req, res){
 
         const userId = req.user.id;
 
-        let text = await extractTextPdf(req.file.path);
-      //  console.log("File: ", req.file.path);
+        let text = await extractTextPdf(req.file.path);;
         if(!text|| text.trim() === ""){
             text = await extractText(pdfUrl);
         } 

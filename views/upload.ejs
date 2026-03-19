@@ -72,13 +72,27 @@
     </div>
 
     <!-- BUTTON -->
-    <button type="submit" class="upload-btn">
-      Upload Paper
+    <button type="submit" class="upload-btn" id = "uploadBtn">
+      <span id = "btnTxt">Upload Paper</span>
+      <span id = "loader" class = "loader hidden"></span>
     </button>
 
   </form>
 
 </div>
+
+<script>
+  const form = document.querySelector("form");
+  const btn = document.getElementById("uploadBtn");
+  const text = document.getElementById("btnText");
+  const loader = document.getElementById("loader");
+
+  form.addEventListener("submit", () => {
+    btn.disabled = true;
+    text.innerText = "Uploading...";
+    loader.classList.remove("hidden");
+  });
+</script>
 
 </body>
 </html>

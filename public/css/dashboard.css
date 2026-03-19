@@ -1,7 +1,3 @@
-/* =============================================================
-   REFINED DARK-MODERN UI SYSTEM
-   ============================================================= */
-
 :root{
 
 --primary:#6366f1;
@@ -362,9 +358,11 @@ background:#050505;
 
 position:fixed;
 
-bottom:30px;
+top: 20px;
 
-right:30px;
+right:20px;
+
+z-index: 20000;
 
 background:#059669;
 

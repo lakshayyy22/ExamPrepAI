@@ -71,7 +71,7 @@ async function uploadPaper(req, res){
 async function getPaperStream(req, res){
     const id = req.params.id;
     const result = await pool.query(
-        "SELECT pdf_url FROM exams WHERE id = $1 AND status = 'approved'",[id]
+        "SELECT pdf_url FROM exams WHERE id = $1",[id]
     );
     const file = await axios.get(
         result.rows[0].pdf_url, {
